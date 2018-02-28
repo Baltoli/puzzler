@@ -58,13 +58,13 @@ void print_key(set<char> const& starts,
   auto line_break = 0;
 
   for(auto c = 'a'; c <= 'z'; ++c) {
-    cout << c << " = ";
-
     if(starts.find(c) != end(starts)) {
       cout << key.at(c);
     } else {
       cout << '?';
     }
+
+    cout << " = " << c;
 
     cout << '\t';
 
