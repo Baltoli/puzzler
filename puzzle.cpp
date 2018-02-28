@@ -7,7 +7,7 @@
 #include <sstream>
 #include <vector>
 
-[[nodiscard]] std::set<char> read_start_chars()
+std::set<char> read_start_chars()
 {
   auto line = std::string{};      // create an empty string to read into
   std::getline(std::cin, line);   // read a line of input
@@ -20,7 +20,7 @@
   return chars;                   // give the set of characters back
 }
 
-[[nodiscard]] std::string read_message()
+std::string read_message()
 {
   auto line = std::string{};
   auto sb = std::stringstream{};
