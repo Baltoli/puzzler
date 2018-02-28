@@ -5,7 +5,6 @@
 #include <random>
 #include <set>
 #include <sstream>
-#include <string_view>
 #include <vector>
 
 [[nodiscard]] std::set<char> read_start_chars()
@@ -35,7 +34,7 @@
 
 std::map<char, int> random_key()
 {
-  auto rd = std::random_device{};
+  auto&& rd = std::random_device{};
 
   auto indexes = std::vector<int>(26);
   std::iota(std::begin(indexes), std::end(indexes), 1);
@@ -75,7 +74,7 @@ void print_key(std::set<char> const& starts,
   std::cout << '\n';
 }
 
-void print_message(std::string_view message,
+void print_message(std::string const& message,
                    std::map<char, int> const& key)
 {
   for(auto c : message) {

@@ -1,4 +1,4 @@
-CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic
+CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic
 
 puzzle: puzzle.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@
