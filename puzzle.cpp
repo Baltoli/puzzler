@@ -7,12 +7,14 @@
 #include <sstream>
 #include <vector>
 
-std::set<char> read_start_chars()
-{
-  auto line = std::string{};      // create an empty string to read into
-  std::getline(std::cin, line);   // read a line of input
+using namespace std;
 
-  auto chars = std::set<char>{};  // create an empty set of characters
+set<char> read_start_chars()
+{
+  auto line = string{};      // create an empty string to read into
+  getline(cin, line);   // read a line of input
+
+  auto chars = set<char>{};  // create an empty set of characters
   for(auto c : line) {            // for every character on the line we read...
     chars.insert(c);              // ...put it into the set
   }
@@ -20,72 +22,72 @@ std::set<char> read_start_chars()
   return chars;                   // give the set of characters back
 }
 
-std::string read_message()
+string read_message()
 {
-  auto line = std::string{};
-  auto sb = std::stringstream{};
+  auto line = string{};
+  auto sb = stringstream{};
 
-  while(std::getline(std::cin, line)) {
+  while(getline(cin, line)) {
     sb << line << '\n';
   }
 
   return sb.str();
 }
 
-std::map<char, int> random_key()
+map<char, int> random_key()
 {
-  auto&& rd = std::random_device{};
+  auto&& rd = random_device{};
 
-  auto indexes = std::vector<int>(26);
-  std::iota(std::begin(indexes), std::end(indexes), 1);
-  std::shuffle(std::begin(indexes), std::end(indexes), rd);
+  auto indexes = vector<int>(26);
+  iota(begin(indexes), end(indexes), 1);
+  shuffle(begin(indexes), end(indexes), rd);
 
-  auto map = std::map<char, int>{};
+  auto key = map<char, int>{};
 
   auto c = 'a';
   for(auto i : indexes) {
-    map[c++] = i;
+    key[c++] = i;
   }
 
-  return map;
+  return key;
 }
 
-void print_key(std::set<char> const& starts, 
-               std::map<char, int> const& key)
+void print_key(set<char> const& starts, 
+               map<char, int> const& key)
 {
   auto line_break = 0;
 
   for(auto c = 'a'; c <= 'z'; ++c) {
-    std::cout << c << " = ";
+    cout << c << " = ";
 
-    if(starts.find(c) != std::end(starts)) {
-      std::cout << key.at(c);
+    if(starts.find(c) != end(starts)) {
+      cout << key.at(c);
     } else {
-      std::cout << '?';
+      cout << '?';
     }
 
-    std::cout << '\t';
+    cout << '\t';
 
     if(++line_break % 5 == 0) {
-      std::cout << '\n';
+      cout << '\n';
     }
   }
 
-  std::cout << '\n';
+  cout << '\n';
 }
 
-void print_message(std::string const& message,
-                   std::map<char, int> const& key)
+void print_message(string const& message,
+                   map<char, int> const& key)
 {
   for(auto c : message) {
-    c = std::tolower(c);
+    c = tolower(c);
 
-    if(key.find(c) != std::end(key)) {
-      std::cout << key.at(c) << ' ';
-    } else if(std::isspace(c)) {
-      std::cout << "/ ";
+    if(key.find(c) != end(key)) {
+      cout << key.at(c) << ' ';
+    } else if(isspace(c)) {
+      cout << "/ ";
     } else {
-      std::cout << c << ' ';
+      cout << c << ' ';
     }
   }
 }
@@ -97,8 +99,8 @@ int main()
   auto key = random_key();
 
   print_key(starts, key);
-  std::cout << '\n';
+  cout << '\n';
 
   print_message(message, key);
-  std::cout << std::endl;
+  cout << endl;
 }
