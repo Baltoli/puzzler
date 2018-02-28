@@ -5,6 +5,7 @@
 #include <random>
 #include <set>
 #include <sstream>
+#include <string_view>
 #include <vector>
 
 [[nodiscard]] std::set<char> read_start_chars()
@@ -32,7 +33,7 @@
   return sb.str();
 }
 
-[[nodiscard]] std::map<char, int> random_mapping()
+std::map<char, int> random_key()
 {
   auto rd = std::random_device{};
 
@@ -50,19 +51,16 @@
   return map;
 }
 
-int main()
+void print_key(std::set<char> const& starts, 
+               std::map<char, int> const& key)
 {
-  auto starts = read_start_chars();
-  auto message = read_message();
-  auto mapping = random_mapping();
-
   auto line_break = 0;
 
   for(auto c = 'a'; c <= 'z'; ++c) {
     std::cout << c << " = ";
 
     if(starts.find(c) != std::end(starts)) {
-      std::cout << mapping[c];
+      std::cout << key.at(c);
     } else {
       std::cout << '?';
     }
@@ -74,19 +72,34 @@ int main()
     }
   }
 
-  std::cout << "\n\n";
+  std::cout << '\n';
+}
 
+void print_message(std::string_view message,
+                   std::map<char, int> const& key)
+{
   for(auto c : message) {
     c = std::tolower(c);
 
-    if(mapping.find(c) != std::end(mapping)) {
-      std::cout << mapping[c] << ' ';
+    if(key.find(c) != std::end(key)) {
+      std::cout << key.at(c) << ' ';
     } else if(std::isspace(c)) {
       std::cout << "/ ";
     } else {
       std::cout << c << ' ';
     }
   }
+}
 
+int main()
+{
+  auto starts = read_start_chars();
+  auto message = read_message();
+  auto key = random_key();
+
+  print_key(starts, key);
+  std::cout << '\n';
+
+  print_message(message, key);
   std::cout << std::endl;
 }
