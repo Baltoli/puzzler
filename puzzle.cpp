@@ -57,14 +57,14 @@ void print_key(set<char> const& starts,
 {
   auto line_break = 0;
 
-  for(auto c = 'a'; c <= 'z'; ++c) {
-    cout << c << " = ";
+  for(auto c = 1; c <= 26; ++c) {
+    cout << c << (c < 10 ? "  " : " ") << "= ";
 
-    if(starts.find(c) != end(starts)) {
-      cout << key.at(c);
-    } else {
-      cout << '?';
-    }
+    for(auto p : key) {
+      if(c == p.second && starts.find(p.first) != std::end(starts)) {
+        cout << p.first;
+      }
+    } 
 
     cout << '\t';
 
