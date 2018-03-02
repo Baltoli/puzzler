@@ -66,6 +66,8 @@ void print_key(set<char> const& starts,
       }
     } 
 
+    cout << " = " << c;
+
     cout << '\t';
 
     if(++line_break % 5 == 0) {
